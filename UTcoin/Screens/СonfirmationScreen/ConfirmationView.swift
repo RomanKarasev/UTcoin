@@ -14,6 +14,7 @@ class ConfirmationView: UIView {
     
     // MARK: Properties
     
+    
     //MARK: Texts
     
     private let instuctionLabel = UILabel(text: Constants.Strings.confirmationInstruction,
@@ -67,11 +68,11 @@ class ConfirmationView: UIView {
         addSubview(instuctionLabel)
         NSLayoutConstraint.activate(
             [instuctionLabel.topAnchor.constraint(equalTo: topAnchor,
-                                                  constant: 160),
+                                                   constant: 160),
              instuctionLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                      constant: 20),
+                                                       constant: 20),
              instuctionLabel.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                       constant: -20)
+                                                        constant: -20)
             ]
         )
         
@@ -99,7 +100,7 @@ class ConfirmationView: UIView {
         addSubview(senderButton)
         NSLayoutConstraint.activate(
             [senderButton.topAnchor.constraint(equalTo: numberTextField.bottomAnchor,
-                                               constant: 20),
+                                                constant: 20),
              senderButton.centerXAnchor.constraint(equalTo: centerXAnchor),
              senderButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40),
              senderButton.heightAnchor.constraint(equalToConstant: 22)

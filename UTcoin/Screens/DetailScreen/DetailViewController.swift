@@ -46,14 +46,14 @@ class DetailViewController: UIViewController {
     // MARK: - Private Methods
     
     @objc private func addNewToTableView() {
-        if detailView.expandButton.titleLabel?.text == "Развернуть" {
-            detailView.termsTableViewHeightConstraint?.constant = 150
+        if detailView.mainScrollView.expandButton.titleLabel?.text == "Развернуть" {
+            detailView.mainScrollView.termsTableViewHeightConstraint?.constant = 150
             detailView.layoutIfNeeded()
             
-            detailView.expandButton.setTitle("Свернуть", for: .normal)
+            detailView.mainScrollView.expandButton.setTitle("Свернуть", for: .normal)
         } else {
-            detailView.expandButton.setTitle("Развернуть", for: .normal)
-            detailView.termsTableViewHeightConstraint?.constant = 0
+            detailView.mainScrollView.expandButton.setTitle("Развернуть", for: .normal)
+            detailView.mainScrollView.termsTableViewHeightConstraint?.constant = 0
             detailView.layoutIfNeeded()
         }
     }
@@ -66,14 +66,14 @@ class DetailViewController: UIViewController {
     private func setProductData() {
         guard let currentProduct = currentProduct else { return }
         
-        detailView.titleLabel.text              = currentProduct.name
-        detailView.priceLabel.text              = currentProduct.price
-        detailView.dayCountLabel.text           = currentProduct.paymentTime
-        detailView.firstTermsCashbackLabel.text = currentProduct.actions[0].value
-        detailView.firstTermsDiscribeLabel.text = currentProduct.actions[0].text
+        detailView.mainScrollView.titleLabel.text              = currentProduct.name
+        detailView.mainScrollView.priceLabel.text              = currentProduct.price
+        detailView.mainScrollView.dayCountLabel.text           = currentProduct.paymentTime
+        detailView.mainScrollView.firstTermsCashbackLabel.text = currentProduct.actions[0].value
+        detailView.mainScrollView.firstTermsDiscribeLabel.text = currentProduct.actions[0].text
         
-        detailView.cashbackButton.setTitle(currentProduct.cashback, for: .normal)
-        GetImagesFromURL.shared.getImage(url: currentProduct.campaignImageURL, imageView: detailView.shopImageView)
+        detailView.mainScrollView.cashbackButton.setTitle(currentProduct.cashback, for: .normal)
+        GetImagesFromURL.shared.getImage(url: currentProduct.campaignImageURL, imageView: detailView.mainScrollView.shopImageView)
         setupImages(currentProduct.imageUrls)
     }
     
@@ -82,15 +82,15 @@ class DetailViewController: UIViewController {
         
         guard let currentCampaign = currentCampaign else { return }
         
-        detailView.titleLabel.text                         = currentCampaign.name
-        detailView.shopImageViewHeightConstraint?.constant = 0
-        detailView.priceLabel.text                         = ""
+        detailView.mainScrollView.titleLabel.text                         = currentCampaign.name
+        detailView.mainScrollView.shopImageViewHeightConstraint?.constant = 0
+        detailView.mainScrollView.priceLabel.text                         = ""
         
-        detailView.dayCountLabel.text           = currentCampaign.paymentTime
-        detailView.firstTermsCashbackLabel.text = currentCampaign.actions[0].value
-        detailView.firstTermsDiscribeLabel.text = currentCampaign.actions[0].text
+        detailView.mainScrollView.dayCountLabel.text           = currentCampaign.paymentTime
+        detailView.mainScrollView.firstTermsCashbackLabel.text = currentCampaign.actions[0].value
+        detailView.mainScrollView.firstTermsDiscribeLabel.text = currentCampaign.actions[0].text
         
-        detailView.cashbackButton.setTitle(currentCampaign.cashback, for: .normal)
+        detailView.mainScrollView.cashbackButton.setTitle(currentCampaign.cashback, for: .normal)
         let campainImages = [currentCampaign.imageURL]
         setupImages(campainImages)
         
@@ -105,24 +105,24 @@ class DetailViewController: UIViewController {
             let xPosition = UIScreen.main.bounds.width * CGFloat(i)
             imageView.frame = CGRect(x: xPosition,
                                      y: 0,
-                                     width: detailView.itemsScrollView.frame.width,
-                                     height: detailView.itemsScrollView.frame.height)
+                                     width: detailView.mainScrollView.itemsScrollView.frame.width,
+                                     height: detailView.mainScrollView.itemsScrollView.frame.height)
             imageView.contentMode = .scaleAspectFit
             
-            detailView.itemsScrollView.contentSize.width = detailView.itemsScrollView.frame.width * CGFloat(i + 1)
-            detailView.itemsScrollView.addSubview(imageView)
-            detailView.itemsScrollView.delegate = self
+            detailView.mainScrollView.itemsScrollView.contentSize.width = detailView.mainScrollView.itemsScrollView.frame.width * CGFloat(i + 1)
+            detailView.mainScrollView.itemsScrollView.addSubview(imageView)
+            detailView.mainScrollView.itemsScrollView.delegate = self
             
         }
     }
     
     private func addTargetToButtons() {
-        detailView.expandButton.addTarget(self, action: #selector(addNewToTableView), for: .touchUpInside)
+        detailView.mainScrollView.expandButton.addTarget(self, action: #selector(addNewToTableView), for: .touchUpInside)
     }
     
     private func setDelegates() {
-        detailView.termsTableView.delegate   = self
-        detailView.termsTableView.dataSource = self
+        detailView.mainScrollView.termsTableView.delegate   = self
+        detailView.mainScrollView.termsTableView.dataSource = self
     }
 }
 

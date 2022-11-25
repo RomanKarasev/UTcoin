@@ -18,10 +18,10 @@ class SignInView: UIView {
     private let descriptionLabel = UILabel(text: Constants.Strings.signInVCDescription,
                                            font: .systemFont(ofSize: 14))
     private let clueLabel        = UILabel(text: Constants.Strings.signInVCClueLabel,
-                                           font: .systemFont(ofSize: 12))
+                                    font: .systemFont(ofSize: 12))
     
     private let instuctionLabel  = UILabel(text: Constants.Strings.signInVCInstruction,
-                                           font: .systemFont(ofSize: 12, weight: .bold))
+                                          font: .systemFont(ofSize: 12, weight: .bold))
     //MARK: TextViews
     
     let numberTextField: UITextField = {

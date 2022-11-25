@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		745BD1692931122E002A2CCE /* MainScrolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745BD1682931122E002A2CCE /* MainScrolView.swift */; };
 		7463548F292D86E4009DA36B /* UIColor + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7463548E292D86E4009DA36B /* UIColor + Ext.swift */; };
 		74635492292D8A09009DA36B /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74635491292D8A09009DA36B /* ConfirmationViewController.swift */; };
 		74635494292D8A1B009DA36B /* ConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74635493292D8A1B009DA36B /* ConfirmationView.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		745BD1682931122E002A2CCE /* MainScrolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScrolView.swift; sourceTree = "<group>"; };
 		7463548E292D86E4009DA36B /* UIColor + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Ext.swift"; sourceTree = "<group>"; };
 		74635491292D8A09009DA36B /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		74635493292D8A1B009DA36B /* ConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationView.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				74AF9E7B292E939D000107DB /* DetailViewController.swift */,
 				74AF9E7D292E9DA0000107DB /* DetailView.swift */,
 				74AF9E7F292EA6E7000107DB /* TermsTableViewCell.swift */,
+				745BD1682931122E002A2CCE /* MainScrolView.swift */,
 			);
 			path = DetailScreen;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74635497292E0E88009DA36B /* SearchViewController.swift in Sources */,
+				745BD1692931122E002A2CCE /* MainScrolView.swift in Sources */,
 				74B1AAA729303E7E00DBB403 /* GetImagesFromURL.swift in Sources */,
 				74B1AA9E292F8F8300DBB403 /* ItemModel.swift in Sources */,
 				7463549D292E2008009DA36B /* ShopCollectionViewCell.swift in Sources */,
