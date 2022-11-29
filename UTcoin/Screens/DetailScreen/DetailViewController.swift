@@ -162,17 +162,9 @@ extension DetailViewController: UITableViewDataSource {
             actionNew.removeFirst()
             cell.cashbackLabel.text = actionNew[indexPath.row].value
             let text = actionNew[indexPath.row].text
-            if text.contains("&") {
-                let fullText    = text
-                let fullTextArr = fullText.components(separatedBy: "&")
-                
-                let firstLine    = fullTextArr[0]
-                let secondLine = "&\(fullTextArr[1])"
-                
-                cell.discribeLabel.text = "\(firstLine) \n\(secondLine)"
-            } else {
-                cell.discribeLabel.text = text
-            }
+            
+            cell.discribeLabel.text = text
+            
             
             return cell
         } else {
@@ -181,25 +173,8 @@ extension DetailViewController: UITableViewDataSource {
             actionNew.removeFirst()
             cell.cashbackLabel.text = actionNew[indexPath.row].value
             let text = actionNew[indexPath.row].text
-            if text.contains("Т")  {
-                let fullText    = text
-                let fullTextArr = fullText.components(separatedBy: "Т")
-                
-                let firstLine    = fullTextArr[0]
-                let secondLine = "Т\(fullTextArr[1])"
-                
-                cell.discribeLabel.text = "\(firstLine) \n\(secondLine)"
-            } else if text.contains("&") {
-                let fullText    = text
-                let fullTextArr = fullText.components(separatedBy: "&")
-                
-                let firstLine    = fullTextArr[0]
-                let secondLine = "&\(fullTextArr[1])"
-                
-                cell.discribeLabel.text = "\(firstLine) \n\(secondLine)"
-            } else {
-                cell.discribeLabel.text = text
-            }
+            
+            cell.discribeLabel.text = text
             
             return cell
         }

@@ -41,9 +41,10 @@ final class TermsTableViewCell: UITableViewCell {
         cashbackLabel.textColor                 = #colorLiteral(red: 0.9803285003, green: 0.3133740723, blue: 0.6123356819, alpha: 1)
         cashbackLabel.adjustsFontSizeToFitWidth = false
         cashbackLabel.sizeToFit()
+        cashbackLabel.textAlignment = .right
         
         discribeLabel.contentMode   = .center
-        discribeLabel.numberOfLines =  0
+        discribeLabel.numberOfLines =  3
         discribeLabel.lineBreakMode = .byWordWrapping
     }
     
@@ -57,16 +58,16 @@ extension TermsTableViewCell {
         
         addSubview(cashbackLabel)
         NSLayoutConstraint.activate(
-            [cashbackLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-             cashbackLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
+            [cashbackLabel.topAnchor.constraint(equalTo: topAnchor),
+             cashbackLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+             cashbackLabel.widthAnchor.constraint(equalToConstant: 75)
             ]
         )
         
         addSubview(discribeLabel)
         NSLayoutConstraint.activate(
             [discribeLabel.topAnchor.constraint(equalTo: topAnchor),
-             discribeLabel.leadingAnchor.constraint(equalTo: cashbackLabel.trailingAnchor,
-                                                    constant: 2),
+             discribeLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
              discribeLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
              discribeLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
             ]

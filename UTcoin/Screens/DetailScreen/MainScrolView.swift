@@ -112,6 +112,7 @@ class MainScrolView: UIScrollView {
         
         firstTermsCashbackLabel.sizeToFit()
         firstTermsCashbackLabel.textColor         = #colorLiteral(red: 0.9803285003, green: 0.3133740723, blue: 0.6123356819, alpha: 1)
+        firstTermsCashbackLabel.textAlignment     = .right
         titleLabel.numberOfLines                  = 0
         firstTermsDiscribeLabel.numberOfLines     = 0
         firstTermsDiscribeLabel.lineBreakMode     = .byCharWrapping
@@ -246,10 +247,12 @@ extension MainScrolView {
             [firstTermsCashbackLabel.topAnchor.constraint(equalTo: termsLabel.bottomAnchor,
                                                           constant: 10),
              firstTermsCashbackLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,
-                                                              constant: 10)
+                                                              constant: 10),
+             firstTermsCashbackLabel.widthAnchor.constraint(equalToConstant: 75)
             ]
         )
         
+    
         contentView.addSubview(firstTermsDiscribeLabel)
         NSLayoutConstraint.activate(
             [firstTermsDiscribeLabel.topAnchor.constraint(equalTo: termsLabel.bottomAnchor,

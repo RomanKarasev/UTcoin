@@ -78,8 +78,7 @@ class SignInView: UIView {
     private func setConstraints() {
         addSubview(descriptionLabel)
         NSLayoutConstraint.activate(
-            [descriptionLabel.topAnchor.constraint(equalTo: topAnchor,
-                                                   constant: 160),
+            [descriptionLabel.topAnchor.constraint(equalTo: topAnchor),
              descriptionLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                        constant: 20),
              descriptionLabel.trailingAnchor.constraint(equalTo: trailingAnchor,
