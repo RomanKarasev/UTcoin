@@ -61,7 +61,8 @@ class ShopCollectionViewCell: UICollectionViewCell {
     
     func render(from model: CompaignModelView) {
         
-        GetImagesFromURL.shared.getImage(url: model.image, imageView: banerImageView)
+        banerImageView.downloadedFrom(link: model.image)
+        //        GetImagesFromURL.shared.getImage(url: model.image, imageView: banerImageView)
         
         cashbackButton.setTitle(model.cashback, for: .normal)
     }

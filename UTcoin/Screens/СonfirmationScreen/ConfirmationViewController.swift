@@ -18,6 +18,9 @@ class ConfirmationViewController: UIViewController {
     var verificationCode = ""
     var number           = ""
     var errorText        = ""
+    var stringNumber     = ""
+    var counter          = 60
+    
     
     
     // MARK: View life cycle
@@ -26,6 +29,7 @@ class ConfirmationViewController: UIViewController {
         super.viewDidLoad()
         setView()
         setDelegate()
+        addTargetToButtons()
     }
     
     
@@ -33,14 +37,60 @@ class ConfirmationViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        view = confirmationView
+    }
+    
+    // MARK: @objc Methods
+    
+    @objc func senderButtonTapped() {
+        
+        if confirmationView.senderButton.titleLabel?.text == Constants.Strings.senderButtonMainText {
+            Parser.signIn(number: number) { data in
+                guard let currentNumber = data.normalizedPhone else { return }
+                self.number = currentNumber
+            }
+            counter = 60
+            updateCounter()
+        }
+    }
+    
+    @objc func updateCounter() {
+        if counter > 0 {
+            let buttonTitle = "Запросить код можно через \(counter) c."
+            confirmationView.senderButton.setTitle(buttonTitle, for: .normal)
+            confirmationView.senderButton.setTitleColor(.red, for: .normal)
+            counter -= 1
+        } else if counter == 0 {
+            confirmationView.senderButton.setTitleColor(Constants.Colors.mainColor, for: .normal)
+            confirmationView.senderButton.setTitle(Constants.Strings.senderButtonMainText, for: .normal)
+        }
     }
     
     
-    // MARK: - Private Methods
+    // MARK: Private Methods
     
     private func setView() {
+        view.backgroundColor = .systemBackground
         title = Constants.Strings.confirmationVCTitle
+        
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+        
+        setNavController()
+        
+        view.addSubview(confirmationView)
+        NSLayoutConstraint.activate(
+            [confirmationView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                                   constant: 10),
+             confirmationView.leadingAnchor.constraint(equalTo: view.leadingAnchor,
+                                                       constant: 20),
+             confirmationView.trailingAnchor.constraint(equalTo: view.trailingAnchor,
+                                                        constant: -20),
+             confirmationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ]
+        )
+    }
+    
+    private func setNavController() {
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .bold)]
         navigationController?.navigationBar.tintColor = Constants.Colors.mainColor
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
@@ -48,6 +98,10 @@ class ConfirmationViewController: UIViewController {
     
     private func setDelegate() {
         confirmationView.numberTextField.delegate = self
+    }
+    
+    private func addTargetToButtons() {
+        confirmationView.senderButton.addTarget(self, action: #selector(senderButtonTapped), for: .touchUpInside)
     }
 }
 
@@ -57,24 +111,24 @@ class ConfirmationViewController: UIViewController {
 extension ConfirmationViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let maxLength               = 4
-        let currentString: NSString = textField.text! as NSString
-        let newString: NSString     = currentString.replacingCharacters(in: range, with: string) as NSString
-        verificationCode            = newString as String
-        
-        if newString.length == maxLength {
+        if let text = textField.text, let rangeText = Range(range, in: text) {
+            let updateText = text.replacingCharacters (in: rangeText, with: string)
             
-            textField.text = verificationCode
-            textField.resignFirstResponder()
-            Parser.verification(number: number, verificationCode: verificationCode) { number in
-                if number.successful == true {
-                    DispatchQueue.main.async {
-                        let vc = SearchViewController()
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.confirmationView.errorLabel.isHidden = false
-                        self.confirmationView.errorLabel.text     = number.errorMessage
+            if updateText.count == maxLength, updateText.isValid(validTypes: .code) {
+                verificationCode = updateText
+                textField.text = verificationCode
+                textField.resignFirstResponder()
+                Parser.verification(number: number, verificationCode: verificationCode) { number in
+                    if number.successful == true {
+                        DispatchQueue.main.async {
+                            let vc = SearchViewController()
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            guard let error = number.errorMessage else { return }
+                            self.setAlert(title: error, viewController: self)
+                        }
                     }
                 }
             }

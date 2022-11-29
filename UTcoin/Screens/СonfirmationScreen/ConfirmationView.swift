@@ -17,8 +17,9 @@ class ConfirmationView: UIView {
     
     //MARK: Texts
     
-    private let instuctionLabel = UILabel(text: Constants.Strings.confirmationInstruction,
-                                          font: .systemFont(ofSize: 14, weight: .bold))
+    let instuctionLabel = UILabel(text: Constants.Strings.confirmationInstruction,
+                                  font: .systemFont(ofSize: 14))
+    let numberLabel = UILabel(text: "9955919919", font: .systemFont(ofSize: 14, weight: .bold))
     
     let errorLabel = UILabel(text: "", font: .systemFont(ofSize: 12))
     
@@ -32,9 +33,9 @@ class ConfirmationView: UIView {
     }()
     
     //MARK: Buttons
-    private let senderButton: UIButton = {
+    let senderButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Отправить код еще раз", for: .normal)
+        button.setTitle("", for: .normal)
         button.setTitleColor(Constants.Colors.mainColor, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.contentHorizontalAlignment = .left
@@ -46,7 +47,8 @@ class ConfirmationView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemBackground
+        backgroundColor = .clear
+        translatesAutoresizingMaskIntoConstraints = false
         setConstraints()
         setOptions()
     }
@@ -67,23 +69,26 @@ class ConfirmationView: UIView {
     private func setConstraints() {
         addSubview(instuctionLabel)
         NSLayoutConstraint.activate(
-            [instuctionLabel.topAnchor.constraint(equalTo: topAnchor,
-                                                   constant: 160),
-             instuctionLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                       constant: 20),
-             instuctionLabel.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                        constant: -20)
+            [instuctionLabel.topAnchor.constraint(equalTo: topAnchor),
+             instuctionLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+             instuctionLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+            ]
+        )
+        
+        addSubview(numberLabel)
+        NSLayoutConstraint.activate(
+            [numberLabel.topAnchor.constraint(equalTo: instuctionLabel.bottomAnchor,
+                                              constant: 2),
+             numberLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
             ]
         )
         
         addSubview(numberTextField)
         NSLayoutConstraint.activate(
-            [numberTextField.topAnchor.constraint(equalTo: instuctionLabel.bottomAnchor,
+            [numberTextField.topAnchor.constraint(equalTo: numberLabel.bottomAnchor,
                                                   constant: 10),
-             numberTextField.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                      constant: 20),
-             numberTextField.trailingAnchor.constraint(equalTo: trailingAnchor,
-                                                       constant: -20),
+             numberTextField.leadingAnchor.constraint(equalTo: leadingAnchor),
+             numberTextField.trailingAnchor.constraint(equalTo: trailingAnchor),
              numberTextField.heightAnchor.constraint(equalToConstant: 50)
             ]
         )
@@ -92,15 +97,14 @@ class ConfirmationView: UIView {
         NSLayoutConstraint.activate(
             [errorLabel.topAnchor.constraint(equalTo: numberTextField.bottomAnchor,
                                              constant: 2),
-             errorLabel.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                                 constant: 20)
+             errorLabel.leadingAnchor.constraint(equalTo: leadingAnchor)
             ]
         )
         
         addSubview(senderButton)
         NSLayoutConstraint.activate(
             [senderButton.topAnchor.constraint(equalTo: numberTextField.bottomAnchor,
-                                                constant: 20),
+                                               constant: 20),
              senderButton.centerXAnchor.constraint(equalTo: centerXAnchor),
              senderButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 40),
              senderButton.heightAnchor.constraint(equalToConstant: 22)

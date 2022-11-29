@@ -15,6 +15,7 @@ class SearchView: UIView {
     // MARK: Properties
     
     var shopCollectionViewHeightConstraint: NSLayoutConstraint?
+    var topConstraint: NSLayoutConstraint?
     
     //MARK: Views
     
@@ -43,8 +44,9 @@ class SearchView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemBackground
+        backgroundColor = .clear
         setConstraints()
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {
@@ -62,11 +64,12 @@ class SearchView: UIView {
                                                                 multiplier: 1,
                                                                 constant: 200)
         
+        
+        
         addSubview(shopCollectionView)
         shopCollectionView.addConstraint(shopCollectionViewHeightConstraint!)
         NSLayoutConstraint.activate(
-            [shopCollectionView.topAnchor.constraint(equalTo: topAnchor,
-                                                     constant: 150),
+            [shopCollectionView.topAnchor.constraint(equalTo: topAnchor),
              shopCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor,
                                                          constant: 20),
              shopCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor,

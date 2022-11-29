@@ -27,24 +27,35 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setView()
+        
         setDelegates()
         setSearch()
+        setView()
     }
     
     override func loadView() {
         super.loadView()
-        view = searchView
     }
     
     
     // MARK: - Private Methods
     
     private func setView() {
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor          = Constants.Colors.mainColor
         navigationController?.navigationBar.prefersLargeTitles = false
         
         navigationController?.navigationItem.largeTitleDisplayMode = .never
+        
+        view.addSubview(searchView)
+        NSLayoutConstraint.activate(
+            [searchView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                             constant: 10),
+             searchView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+             searchView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+             searchView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ]
+        )
     }
     
     private func setSearch() {
@@ -68,26 +79,29 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController: UISearchBarDelegate {
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+#warning("Добавить поиск без учета регистра")
         if let searchResult = searchController.searchBar.text {
-            timer?.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false , block: { (_) in
-                
-                Parser.searchResult(searchResult: searchResult) { results in
-                    self.campanaign = results.campaigns
-                    self.products   = results.products
-                    DispatchQueue.main.async {
-                        if results.campaigns.count == 0 {
-                            self.searchView.shopCollectionViewHeightConstraint?.constant = 0
-                        } else {
-                            self.searchView.shopCollectionViewHeightConstraint?.constant = 200
-                        }
-                        self.searchView.itemTableView.reloadData()
-                        self.searchView.shopCollectionView.reloadData()
+            
+            Parser.searchResult(searchResult: searchResult) { results in
+                self.campanaign = results.campaigns
+                self.products   = results.products
+                DispatchQueue.main.async {
+                    if results.campaigns.count == 0 {
+                        self.searchView.shopCollectionViewHeightConstraint?.constant = 0
+                    } else {
+                        self.searchView.shopCollectionViewHeightConstraint?.constant = 200
                     }
+                    self.searchView.itemTableView.reloadData()
+                    self.searchView.shopCollectionView.reloadData()
                 }
-            })
+            }
+            //            })
         }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
     }
 }
 

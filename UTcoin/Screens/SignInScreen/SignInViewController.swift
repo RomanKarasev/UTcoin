@@ -12,6 +12,7 @@ import UIKit
 class SignInViewController: UIViewController {
     
     // MARK: Properties
+    
     var number = ""
     
     //MARK: Views
@@ -29,20 +30,12 @@ class SignInViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        view = signInView
     }
     
     //MARK: objcMethods
     
     @objc func onwardsButtonTapped() {
-        number = signInView.numberTextField.text!
-        let vc = ConfirmationViewController()
-        Parser.signIn(number: number) { data in
-            
-            guard let currentNumber = data.normalizedPhone else { return }
-            vc.number = currentNumber
-        }
-        navigationController?.pushViewController(vc, animated: true)
+        isTextIsValid()
     }
     
     @objc func closeButtonTapped() {
@@ -51,6 +44,7 @@ class SignInViewController: UIViewController {
     
     // MARK: - Private Methods
     private func setView() {
+        view.backgroundColor = .systemBackground
         title = "Войти"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: Constants.Images.closeBarItem,
                                                            style: .done,
@@ -58,6 +52,16 @@ class SignInViewController: UIViewController {
                                                            action: #selector(closeButtonTapped))
         navigationController?.navigationBar.tintColor = Constants.Colors.mainColor
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        view.addSubview(signInView)
+        NSLayoutConstraint.activate(
+            [signInView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,
+                                             constant: 10),
+             signInView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+             signInView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+             signInView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ]
+        )
     }
     
     private func addTargetToButtons() {
@@ -68,15 +72,48 @@ class SignInViewController: UIViewController {
     private func setDelegates() {
         signInView.numberTextField.delegate = self
     }
+    
+    private func isTextIsRight(textField: UITextField, range: NSRange, string: String, maxLength: Int) -> Bool {
+        guard let text = textField.text, let rangeText = Range(range, in: text) else { return false}
+        
+        let updateText = text.replacingCharacters (in: rangeText, with: string)
+        if updateText.count == maxLength {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    private func isTextIsValid() {
+        let text = signInView.numberTextField.text!
+        if text.isValid(validTypes: .number) {
+            number = text
+            let vc = ConfirmationViewController()
+            Parser.signIn(number: number) { data in
+                guard let currentNumber = data.normalizedPhone else { return }
+                vc.number = currentNumber
+                DispatchQueue.main.async {
+                    vc.confirmationView.numberLabel.text = currentNumber
+                }
+            }
+            navigationController?.pushViewController(vc, animated: true)
+        } else {
+            setAlert(title: Constants.Strings.numberError, viewController: self)
+        }
+    }
 }
 
 //MARK: - UITextFieldDelegate
 
 extension SignInViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        signInView.onwardsButton.backgroundColor = Constants.Colors.mainColor
-        signInView.onwardsButton.setTitleColor(.white, for: .normal)
+        if isTextIsRight(textField: textField, range: range, string: string, maxLength: 10) {
+            signInView.onwardsButton.backgroundColor = Constants.Colors.mainColor
+            signInView.onwardsButton.setTitleColor(.white, for: .normal)
+        } else {
+            signInView.onwardsButton.backgroundColor = #colorLiteral(red: 0.9137255549, green: 0.9137255549, blue: 0.9137255549, alpha: 1)
+            signInView.onwardsButton.setTitleColor(UIColor(hexString: "#7D7D7D"), for: .normal)
+        }
         return true
     }
 }

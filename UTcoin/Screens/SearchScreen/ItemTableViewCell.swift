@@ -70,8 +70,9 @@ final class ItemTableViewCell: UITableViewCell {
     
     func render(from model: ProductViewModel) {
         
-        GetImagesFromURL.shared.getImage(url: model.mainImage, imageView: itemImageView)
-        GetImagesFromURL.shared.getImage(url: model.campaignImageURL, imageView: shopImageView)
+        
+        itemImageView.downloadedFrom(link: model.mainImage)
+        shopImageView.downloadedFrom(link: model.campaignImageURL)
         
         itemTitleLabel.text = model.name
         priceLabel.text     = model.price

@@ -15,7 +15,7 @@ class DetailView: UIView {
     let mainScrollView = MainScrolView()
     
     //MARK: Buttons
-
+    
     let buyButton: UIButton = {
         let button                                       = UIButton()
         button.titleLabel?.font                          = .systemFont(ofSize: 12)
@@ -31,7 +31,8 @@ class DetailView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemBackground
+        backgroundColor = .clear
+        translatesAutoresizingMaskIntoConstraints = false
         setConstraints()
     }
     
@@ -57,7 +58,6 @@ extension DetailView {
              buyButton.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.size.height / 24)
             ]
         )
-        
         
         addSubview(mainScrollView)
         NSLayoutConstraint.activate(

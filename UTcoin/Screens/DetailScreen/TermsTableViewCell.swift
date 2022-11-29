@@ -16,10 +16,10 @@ final class TermsTableViewCell: UITableViewCell {
     //MARK: Labels
     
     let cashbackLabel = UILabel(text: "",
-                                font: .systemFont(ofSize: 14))
+                                font: .systemFont(ofSize: 12))
     
     let discribeLabel = UILabel(text: "",
-                                font: .systemFont(ofSize: 14, weight: .bold))
+                                font: .systemFont(ofSize: 12, weight: .bold))
     
     
     // MARK: Init
@@ -40,11 +40,11 @@ final class TermsTableViewCell: UITableViewCell {
     private func setOption() {
         cashbackLabel.textColor                 = #colorLiteral(red: 0.9803285003, green: 0.3133740723, blue: 0.6123356819, alpha: 1)
         cashbackLabel.adjustsFontSizeToFitWidth = false
+        cashbackLabel.sizeToFit()
         
         discribeLabel.contentMode   = .center
         discribeLabel.numberOfLines =  0
         discribeLabel.lineBreakMode = .byWordWrapping
-        discribeLabel.sizeToFit()
     }
     
 }

@@ -26,6 +26,9 @@
 		74B1AAA1292F92A900DBB403 /* CompaignModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B1AAA0292F92A900DBB403 /* CompaignModelView.swift */; };
 		74B1AAA3292FF2C000DBB403 /* ProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B1AAA2292FF2C000DBB403 /* ProductViewModel.swift */; };
 		74B1AAA729303E7E00DBB403 /* GetImagesFromURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B1AAA629303E7E00DBB403 /* GetImagesFromURL.swift */; };
+		74C0E6FD293545C70034E382 /* UIString + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E6FC293545C70034E382 /* UIString + Ext.swift */; };
+		74C0E70129355A8E0034E382 /* UIViewController + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E70029355A8E0034E382 /* UIViewController + Ext.swift */; };
+		74C0E70329358DE20034E382 /* UIImage + Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C0E70229358DE10034E382 /* UIImage + Ext.swift */; };
 		74DB710F292D63A0006375A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB710E292D63A0006375A1 /* AppDelegate.swift */; };
 		74DB7111292D63A0006375A1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB7110292D63A0006375A1 /* SceneDelegate.swift */; };
 		74DB7113292D63A0006375A1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74DB7112292D63A0006375A1 /* SignInViewController.swift */; };
@@ -56,6 +59,9 @@
 		74B1AAA0292F92A900DBB403 /* CompaignModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaignModelView.swift; sourceTree = "<group>"; };
 		74B1AAA2292FF2C000DBB403 /* ProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewModel.swift; sourceTree = "<group>"; };
 		74B1AAA629303E7E00DBB403 /* GetImagesFromURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetImagesFromURL.swift; sourceTree = "<group>"; };
+		74C0E6FC293545C70034E382 /* UIString + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIString + Ext.swift"; sourceTree = "<group>"; };
+		74C0E70029355A8E0034E382 /* UIViewController + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Ext.swift"; sourceTree = "<group>"; };
+		74C0E70229358DE10034E382 /* UIImage + Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Ext.swift"; sourceTree = "<group>"; };
 		74DB710B292D63A0006375A1 /* UTcoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UTcoin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74DB710E292D63A0006375A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74DB7110292D63A0006375A1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -222,6 +228,9 @@
 				7463548E292D86E4009DA36B /* UIColor + Ext.swift */,
 				74AF9E76292E7A9F000107DB /* UIButton + Ext.swift */,
 				74AF9E78292E8276000107DB /* UIStackView + Ext.swift */,
+				74C0E6FC293545C70034E382 /* UIString + Ext.swift */,
+				74C0E70029355A8E0034E382 /* UIViewController + Ext.swift */,
+				74C0E70229358DE10034E382 /* UIImage + Ext.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -303,6 +312,8 @@
 				7463549D292E2008009DA36B /* ShopCollectionViewCell.swift in Sources */,
 				74DB7130292D7293006375A1 /* UILabel + Ext.swift in Sources */,
 				74DB712D292D6EE0006375A1 /* Constants.swift in Sources */,
+				74C0E70329358DE20034E382 /* UIImage + Ext.swift in Sources */,
+				74C0E70129355A8E0034E382 /* UIViewController + Ext.swift in Sources */,
 				74AF9E77292E7A9F000107DB /* UIButton + Ext.swift in Sources */,
 				74AF9E7C292E939D000107DB /* DetailViewController.swift in Sources */,
 				74635499292E0E96009DA36B /* SearchView.swift in Sources */,
@@ -310,6 +321,7 @@
 				74AF9E80292EA6E7000107DB /* TermsTableViewCell.swift in Sources */,
 				74B1AAA1292F92A900DBB403 /* CompaignModelView.swift in Sources */,
 				74B1AAA3292FF2C000DBB403 /* ProductViewModel.swift in Sources */,
+				74C0E6FD293545C70034E382 /* UIString + Ext.swift in Sources */,
 				74DB7113292D63A0006375A1 /* SignInViewController.swift in Sources */,
 				74B1AA9C292F71E900DBB403 /* SignInModel.swift in Sources */,
 				74635494292D8A1B009DA36B /* ConfirmationView.swift in Sources */,

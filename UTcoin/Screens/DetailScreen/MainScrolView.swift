@@ -71,10 +71,10 @@ class MainScrolView: UIScrollView {
                                             font: .systemFont(ofSize: 14, weight: .semibold))
     
     let firstTermsCashbackLabel   = UILabel(text: "",
-                                            font: .systemFont(ofSize: 14))
+                                            font: .systemFont(ofSize: 12))
     
     let firstTermsDiscribeLabel   = UILabel(text: "",
-                                            font: .systemFont(ofSize: 14, weight: .bold))
+                                            font: .systemFont(ofSize: 12, weight: .bold))
     
     //MARK: Buttons
     
@@ -87,7 +87,7 @@ class MainScrolView: UIScrollView {
         button.setTitleColor(Constants.Colors.mainColor, for: .normal)
         return button
     }()
-   
+    
     // MARK: Initialization
     
     override init(frame: CGRect) {
@@ -109,6 +109,8 @@ class MainScrolView: UIScrollView {
         showsHorizontalScrollIndicator            = false
         translatesAutoresizingMaskIntoConstraints = false
         contentSize                               = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height + 300)
+        
+        firstTermsCashbackLabel.sizeToFit()
         firstTermsCashbackLabel.textColor         = #colorLiteral(red: 0.9803285003, green: 0.3133740723, blue: 0.6123356819, alpha: 1)
         titleLabel.numberOfLines                  = 0
         firstTermsDiscribeLabel.numberOfLines     = 0
@@ -145,8 +147,7 @@ extension MainScrolView {
         NSLayoutConstraint.activate(
             [itemsScrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
              itemsScrollView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-             itemsScrollView.topAnchor.constraint(equalTo: contentView.topAnchor,
-                                                  constant: 90),
+             itemsScrollView.topAnchor.constraint(equalTo: contentView.topAnchor),
              itemsScrollView.heightAnchor.constraint(equalToConstant:  UIScreen.main.bounds.size.height / 3)
             ]
         )

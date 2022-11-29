@@ -19,6 +19,9 @@ enum Constants {
         static let signInVCClueLabel       = "Номер телефона"
         static let signInVCInstruction     = "(на указанный номер поступит звонок - последние 4 цифры номера являются кодом для авторизаии)"
         static let signInVCTextViewText    = "Нажимая кнопку «Далее», вы соглашаетесь с условиями Пользовательского соглашения и с обработкой вашей персональной информации на условиях Политики конфиденциальности."
+        static let codeError               = "Введитете цифры от 0-9"
+        static let numberError             = "Номер должен состоять только из цифр"
+        static let senderButtonMainText    = "Отправить код еще раз"
     }
     
     enum Colors {
