@@ -44,6 +44,7 @@ class SearchViewController: UIViewController {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.tintColor          = Constants.Colors.mainColor
         navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.hidesBackButton = true
         
         navigationController?.navigationItem.largeTitleDisplayMode = .never
         

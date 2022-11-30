@@ -22,6 +22,7 @@ enum Constants {
         static let codeError               = "Введитете цифры от 0-9"
         static let numberError             = "Номер должен состоять только из цифр"
         static let senderButtonMainText    = "Отправить код еще раз"
+        static var currentNumber           = ""
     }
     
     enum Colors {

@@ -14,6 +14,8 @@ class SignInViewController: UIViewController {
     // MARK: Properties
     
     var number = ""
+    var currentNumber = ""
+    let userDefaults = UserDefaults.standard
     
     //MARK: Views
     
@@ -35,7 +37,16 @@ class SignInViewController: UIViewController {
     //MARK: objcMethods
     
     @objc func onwardsButtonTapped() {
-        isTextIsValid()
+        if number == "" {
+            isTextIsValid()
+        } else {
+            let vc = ConfirmationViewController()
+            vc.number = number
+            DispatchQueue.main.async {
+                vc.confirmationView.numberLabel.text = self.userDefaults.string(forKey: "normalizedPhone")
+            }
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     @objc func closeButtonTapped() {
@@ -77,28 +88,37 @@ class SignInViewController: UIViewController {
         guard let text = textField.text, let rangeText = Range(range, in: text) else { return false}
         
         let updateText = text.replacingCharacters (in: rangeText, with: string)
-        if updateText.count == maxLength {
+        if updateText.count == maxLength, updateText.isValid(validTypes: .code) {
             return true
         } else {
             return false
         }
     }
     
-    private func isTextIsValid() {
-        let text = signInView.numberTextField.text!
-        if text.isValid(validTypes: .number) {
-            number = text
-            let vc = ConfirmationViewController()
-            Parser.signIn(number: number) { data in
-                guard let currentNumber = data.normalizedPhone else { return }
-                vc.number = currentNumber
-                DispatchQueue.main.async {
-                    vc.confirmationView.numberLabel.text = currentNumber
-                }
+    private func getData(number: String) {
+        let vc = ConfirmationViewController()
+        Parser.signIn(number: number) { data in
+            guard let currentNumber = data.normalizedPhone else { return }
+            vc.number = currentNumber
+            self.userDefaults.setValue(currentNumber, forKey: "normalizedPhone")
+            self.userDefaults.setValue(number, forKey: "number")
+            DispatchQueue.main.async {
+                vc.confirmationView.numberLabel.text = currentNumber
             }
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
-            setAlert(title: Constants.Strings.numberError, viewController: self)
+        }
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func isTextIsValid() {
+        
+        if signInView.numberTextField.text != nil {
+            guard let text = signInView.numberTextField.text else { return }
+            if text.isValid(validTypes: .number) {
+                number = text
+                getData(number: text)
+            } else {
+                setAlert(title: Constants.Strings.numberError, viewController: self)
+            }
         }
     }
 }
@@ -108,6 +128,7 @@ class SignInViewController: UIViewController {
 extension SignInViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if isTextIsRight(textField: textField, range: range, string: string, maxLength: 10) {
+            
             signInView.onwardsButton.backgroundColor = Constants.Colors.mainColor
             signInView.onwardsButton.setTitleColor(.white, for: .normal)
         } else {

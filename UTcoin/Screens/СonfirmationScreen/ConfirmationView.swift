@@ -19,7 +19,7 @@ class ConfirmationView: UIView {
     
     let instuctionLabel = UILabel(text: Constants.Strings.confirmationInstruction,
                                   font: .systemFont(ofSize: 14))
-    let numberLabel = UILabel(text: "9955919919", font: .systemFont(ofSize: 14, weight: .bold))
+    let numberLabel = UILabel(text: "", font: .systemFont(ofSize: 14, weight: .bold))
     
     let errorLabel = UILabel(text: "", font: .systemFont(ofSize: 12))
     

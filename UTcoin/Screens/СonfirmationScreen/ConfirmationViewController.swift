@@ -20,6 +20,7 @@ class ConfirmationViewController: UIViewController {
     var errorText        = ""
     var stringNumber     = ""
     var counter          = 60
+    let userDefaults     = UserDefaults.standard
     
     
     
@@ -87,6 +88,7 @@ class ConfirmationViewController: UIViewController {
              confirmationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ]
         )
+       
     }
     
     private func setNavController() {
@@ -103,6 +105,22 @@ class ConfirmationViewController: UIViewController {
     private func addTargetToButtons() {
         confirmationView.senderButton.addTarget(self, action: #selector(senderButtonTapped), for: .touchUpInside)
     }
+    
+    private func getData(number: String, verificationCode: String) {
+        Parser.verification(number: number, verificationCode: verificationCode) { number in
+            if number.successful == true {
+                DispatchQueue.main.async {
+                    let vc = SearchViewController()
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    guard let error = number.errorMessage else { return }
+                    self.setAlert(title: error, viewController: self)
+                }
+            }
+        }
+    }
 }
 
 
@@ -118,18 +136,11 @@ extension ConfirmationViewController: UITextFieldDelegate {
                 verificationCode = updateText
                 textField.text = verificationCode
                 textField.resignFirstResponder()
-                Parser.verification(number: number, verificationCode: verificationCode) { number in
-                    if number.successful == true {
-                        DispatchQueue.main.async {
-                            let vc = SearchViewController()
-                            self.navigationController?.pushViewController(vc, animated: true)
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            guard let error = number.errorMessage else { return }
-                            self.setAlert(title: error, viewController: self)
-                        }
-                    }
+                if number == "" {
+                    guard let currentNumber = userDefaults.string(forKey: "number") else { return false }
+                    getData(number: currentNumber, verificationCode: verificationCode)
+                } else {
+                    getData(number: number, verificationCode: verificationCode)
                 }
             }
         }
